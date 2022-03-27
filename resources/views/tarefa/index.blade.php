@@ -30,17 +30,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                    </td>
-                </tr>
+                @forelse ($appointments as $appointment)
+                    <tr>
+                        <th scope="row">{{$appointment->id}}</th>
+                        <td>{{$appointment->title}}</td>
+                        <td>{{$appointment->created_at}}</td>
+                        <td>{{$appointment->date_reminder}}</td>
+                        <td>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                @empty
+                @endforelse
             </tbody>
         </table>
     </div>

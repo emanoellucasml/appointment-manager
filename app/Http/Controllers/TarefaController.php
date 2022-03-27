@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class TarefaController extends Controller
 {
 
-
     public function __construct(){
         $this->middleware('auth');
     }
@@ -25,7 +24,9 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        return View::make('tarefa.index');
+        $owner = Auth::user();
+        $appointments = $owner->appointments;
+        return View::make('tarefa.index', compact('appointments'));
     }
 
     /**

@@ -104,7 +104,7 @@
             </div>
         </div>
         @yield('content')
-        <footer class="footer py-3 bg-light text-center" style="position: fixed; bottom: 0; width: 100%; background-color: #8000803d !important; left: 0;">
+        <footer class="footer py-3 bg-light text-center" style="background-color: #8000803d !important; left: 0;">
             <span class="text-muted">Task manager &copy; | 2022</span>
         </footer>
     </div>
@@ -127,6 +127,15 @@
                 toastr.error("{{ Session::get('error') }}");
             @endif
         });
+
+        window.onload = () => {
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    toastr.error('"{{$error}}"')
+                @endforeach
+            @endif
+        }
+
         </script>
     @yield('script')
     @yield('modals')

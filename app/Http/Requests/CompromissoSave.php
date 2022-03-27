@@ -23,10 +23,12 @@ class CompromissoSave extends FormRequest
      */
     public function rules()
     {
+        info(session()->all());
         return [
             'title' => 'required',
             'date_reminder' => 'required',
             'description' => 'required'
         ];
+        info(session());
     }
 }
