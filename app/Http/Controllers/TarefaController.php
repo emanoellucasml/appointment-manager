@@ -84,6 +84,15 @@ class TarefaController extends Controller
 
     public function destroy(Tarefa $tarefa)
     {
-        dd($tarefa);
+        try{
+            DB::table(function() use ($tarefa){
+                $tarefa->delete();
+            });
+            return redirect()
+                ->route('tarefa.index')
+                ->with(['success' => 'Tarefa atualizada!']);
+        }catch(\Exception $e){
+            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);   
+        }
     }
 }

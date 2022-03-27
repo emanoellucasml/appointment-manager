@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-sm-12 text-center mt-1">
         <div class="h1">
-            Minhas tarefas
+            Meus compromissos
         </div>
     </div>
 
@@ -42,7 +42,7 @@
                                 <i aria-hidden="true" class="fa fa-search"></i>
                             </a>
 
-                            <a href="" data-item="{{$appointment->toJson()}}" data-bs-toggle="modal" data-bs-target="#modal-edicao" onclick="event.preventDefault(); atualizarCompromisso(this); " class="btn-warning btn">
+                            <a href="" data-datetime="{{$appointment->date_reminder->format('Y-m-d\TH:i:s')}}" data-item="{{$appointment->toJson()}}" data-bs-toggle="modal" data-bs-target="#modal-edicao" onclick="event.preventDefault(); atualizarCompromisso(this);" class="btn-warning btn">
                                 <i  class="fa a fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
 
@@ -51,12 +51,17 @@
                                 @method('DELETE')
                             </form>
 
-                            <a href="" onclick="event.preventDefault(); if(confirm('kkkk')){document.getElementById('appointment-delete-{{$appointment->id}}').submit()}" class="btn btn-danger">
+                            <a href="" onclick="event.preventDefault(); if(confirm('Tem certeza?')){document.getElementById('appointment-delete-{{$appointment->id}}').submit()}" class="btn btn-danger">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
                 @empty
+                    <tr>
+                       <td colspan="5" class="text-center">
+                            <h4>Você não possui compromissos.</h4>
+                       </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
@@ -68,11 +73,13 @@
 <script>
     function atualizarCompromisso(elemento){
         const item = JSON.parse(elemento.getAttribute('data-item'));
+        const datetime = elemento.getAttribute('data-datetime');
         const form = document.getElementById('form-edit-compromisso');
-        document.getElementById('description-edit').value = item.description;
-        document.getElementById('date_reminder-edit').value = new Date(item.date_reminder+"+00:00").toJSON().slice(0,19);
-        document.getElementById('title-edit').value = item.title;
+        
         form.action = form.action.replace('/0', '/' + item.id);
+        document.getElementById('title-edit').value = item.title
+        document.getElementById('description-edit').value = item.description;
+        document.getElementById('date_reminder-edit').value = datetime;
     }
 </script>
 @endsection

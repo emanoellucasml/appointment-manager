@@ -137,7 +137,7 @@
         }
 
         </script>
-    @yield('script')
     @yield('modals')
+    @yield('script')
 </body>
 </html>
