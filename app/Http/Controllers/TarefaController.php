@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Requests\CompromissoSave;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class TarefaController extends Controller
 {
@@ -17,11 +18,6 @@ class TarefaController extends Controller
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $owner = Auth::user();
@@ -29,22 +25,13 @@ class TarefaController extends Controller
         return View::make('tarefa.index', compact('appointments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        abort(Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(CompromissoSave $request)
     {
         $data = $request->validated();
@@ -63,48 +50,40 @@ class TarefaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Tarefa $tarefa)
     {
-        //
+        abort(Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Tarefa $tarefa)
     {
-        //
+        abort(Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tarefa $tarefa)
+
+    public function update(CompromissoSave $request, Tarefa $tarefa)
     {
-        //
+        $data = $request->validated();
+        $user = Auth::user();
+
+        try{
+            DB::transaction(function() use($data, $tarefa){
+                $tarefa->fill($data);
+                $tarefa->save();
+            });
+            return redirect()
+                ->route('tarefa.index')
+                ->with(['success' => 'Tarefa atualizada!']);
+        }catch(\Exception $e){
+            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);   
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Tarefa $tarefa)
     {
-        //
+        dd($tarefa);
     }
 }
