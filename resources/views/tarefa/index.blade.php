@@ -16,9 +16,7 @@
     </div>
 
     <div class="col-sm-12 p-2" style="background-color: gray;">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="fa fa-2x fa-plus-circle" style="color: white;" aria-hidden="true"></i>
-        </button>
+            <i data-bs-toggle="modal" data-bs-target="#exampleModal" class="fa fa-2x fa-plus-circle" style="color: white;" aria-hidden="true"></i>
     </div>
 
     <div class="col-sm-12">
@@ -37,8 +35,8 @@
                     <tr>
                         <th scope="row">{{$appointment->id}}</th>
                         <td>{{$appointment->title}}</td>
-                        <td>{{$appointment->created_at}}</td>
-                        <td>{{$appointment->date_reminder}}</td>
+                        <td>{{$appointment->created_at->format('d/m/Y, \à\s H:i:s')}}</td>
+                        <td>{{$appointment->date_reminder->format('d/m/Y, \à\s H:i:s')}}</td>
                         <td>
                             <a onclick="event.preventDefault()" data-toggle="tooltip" data-placement="bottom" title="" href="" class="btn btn-primary" data-original-title="Visualizar">
                                 <i aria-hidden="true" class="fa fa-search"></i>

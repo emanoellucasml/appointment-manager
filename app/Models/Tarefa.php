@@ -15,6 +15,11 @@ class Tarefa extends Model
         'title', 'description', 'date_reminder'
     ];
 
+    protected $casts = [
+        'date_reminder' => 'datetime',
+    ];
+
+
     public function owner(){
         return $this->belongsTo(User::class);
     }
