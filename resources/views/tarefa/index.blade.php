@@ -67,6 +67,11 @@
         </table>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        {{ $appointments->links() }}
+    </div>
+</div>
 @endsection
 
 @section('script')

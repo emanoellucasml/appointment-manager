@@ -20,8 +20,8 @@ class TarefaController extends Controller
 
     public function index()
     {
-        $owner = Auth::user();
-        $appointments = $owner->appointments;
+        $appointments = Tarefa::where('user_id', Auth::user()->id)
+                        ->paginate(8);
         return View::make('tarefa.index', compact('appointments'));
     }
 
