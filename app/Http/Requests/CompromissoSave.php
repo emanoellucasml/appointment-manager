@@ -28,7 +28,7 @@ class CompromissoSave extends FormRequest
     {
         return [
             'title' => 'required',
-            'date_reminder' => 'required',
+            'date_reminder' => 'required|date',
             'description' => 'required'
         ];
     }

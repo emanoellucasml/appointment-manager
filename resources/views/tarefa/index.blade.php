@@ -105,7 +105,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
                     <div class="form-group">
                         <label for="title">Título</label>
-                        <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" placeholder="Título do compromisso">
+                        <input value="{{ old('title') }}" type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" placeholder="Título do compromisso">
                         <!-- <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small> -->
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                 <div class="col-sm-6 col-xs-6 col-lg-6 col-xs-6">
                     <div class="form-group">
                         <label for="date_reminder">Lembrar em</label>
-                        <input type="datetime-local" class="form-control" name="date_reminder" id="date_reminder" aria-describedby="emailHelp">
+                        <input value="{{ old('date_reminder') }}" type="datetime-local" class="form-control" name="date_reminder" id="date_reminder" aria-describedby="emailHelp">
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                 <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                        <textarea value="{{ old('description') }}" class="form-control" name="description" id="description" rows="3"></textarea>
                     </div>
                 </div>
             </div>
