@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CompromissoSave extends FormRequest
 {
+
+    protected $stopOnFirstFailure = false;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,12 +26,20 @@ class CompromissoSave extends FormRequest
      */
     public function rules()
     {
-        info(session()->all());
         return [
             'title' => 'required',
             'date_reminder' => 'required',
             'description' => 'required'
         ];
-        info(session());
+    }
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'É necessário informar um título.',
+            'date_reminder.required' => 'É necessário informar uma data.',
+            'description.required' => 'É necessário informar uma descrição.' 
+        ];
     }
 }
