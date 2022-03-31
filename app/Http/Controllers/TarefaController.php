@@ -19,7 +19,7 @@ class TarefaController extends Controller
 
 
     public function index()
-    {
+    {        
         $appointments = Tarefa::where('user_id', Auth::user()->id)
                         ->orderBy('created_at', 'DESC')
                         ->paginate(8);
@@ -36,6 +36,12 @@ class TarefaController extends Controller
     public function store(CompromissoSave $request)
     {
         $data = $request->validated();
+
+        $data = array_merge($data, [
+            'to_notify' => 1,
+            'notified_amount' => 0
+        ]);
+
         $user = Auth::user();
 
         try{

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Tarefa extends Model
 {
@@ -27,6 +28,18 @@ class Tarefa extends Model
 
     public function isToNotify()
     {
-        return $this->to_notify;
+        return $this->to_notify ?? false;
     }
+
+    public function changeNotificationState()
+    {
+        $this->to_notify = !$this->to_notify;
+        $this->save();
+    }
+
+    public function shouldINotifyNow(): bool
+    {
+        return Carbon::now()->diffInMinutes($this->date_reminder) <= 2;
+    }
+
 }
