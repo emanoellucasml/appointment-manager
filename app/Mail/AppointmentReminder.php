@@ -22,10 +22,10 @@ class AppointmentReminder extends Mailable
      *
      * @return void
      */
-    public function __construct(Tarefa $appointment, User $owner)
+    public function __construct(Tarefa $appointment)
     {
         $this->appointment = $appointment;
-        $this->owner = $owner;
+        $this->owner = $appointment->owner;
     }
 
     /**

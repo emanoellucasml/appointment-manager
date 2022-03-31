@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\NotifyAppointmentEvent;
 use Illuminate\Console\Command;
 use App\Models\Tarefa;
 
@@ -44,8 +45,7 @@ class AppointmentsVerify extends Command
 
         foreach($appointments as $appointment){
             if($appointment->shouldINotifyNow()){
-                //event of notification
-                $appointment->changeNotificationState();
+                event(new NotifyAppointmentEvent($appointment));
             }
         }
         return 0;

@@ -34,7 +34,11 @@ class Tarefa extends Model
     public function changeNotificationState()
     {
         $this->to_notify = !$this->to_notify;
-        $this->save();
+    }
+
+    public function incrementNotificationAmount()
+    {
+        $this->notified_amount = $this->notified_amount + 1;
     }
 
     public function shouldINotifyNow(): bool
