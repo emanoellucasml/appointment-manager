@@ -27,7 +27,6 @@ class AddColumnsToTarefasTable extends Migration
     public function down()
     {
         Schema::table('tarefas', function (Blueprint $table) {
-            //
             $table->dropColumn('to_notify');
             $table->dropColumn('notified_amount');
         });
