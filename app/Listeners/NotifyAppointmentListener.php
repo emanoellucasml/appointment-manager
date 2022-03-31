@@ -36,9 +36,7 @@ class NotifyAppointmentListener
                 $appointment->incrementNotificationAmount();
                 $appointment->save();
             });
-            
             Mail::to($appointment->owner->email)
-                    ->cc('Lembrete')
                     ->send(new AppointmentReminder($appointment));
         }catch(\Exception $e){
             info($e->getMessage());

@@ -43,11 +43,17 @@ class AppointmentsVerify extends Command
             return $appointment->isToNotify();
         });
 
+        $totalEmailsSent = 0;
+
         foreach($appointments as $appointment){
             if($appointment->shouldINotifyNow()){
                 event(new NotifyAppointmentEvent($appointment));
+                $totalEmailsSent++;
             }
         }
+
+        echo "{$totalEmailsSent} emails sent." . PHP_EOL;
+        
         return 0;
     }
 }
