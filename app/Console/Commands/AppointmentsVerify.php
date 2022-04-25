@@ -39,9 +39,13 @@ class AppointmentsVerify extends Command
      */
     public function handle()
     {
-        $appointments = Tarefa::all()->filter(function($appointment){
+        /*$appointments = Tarefa::all()->filter(function($appointment){
             return $appointment->isToNotify();
-        });
+        });*/
+        
+        $appointments = Tarefa::where(function($q){
+            return $q->isToNotify();
+        })->get();
 
         $totalEmailsSent = 0;
 
