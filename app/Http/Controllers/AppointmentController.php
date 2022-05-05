@@ -9,6 +9,7 @@ use App\Http\Requests\CompromissoSave;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
+use App\Services\AppointmentSearchService;
 
 class AppointmentController extends Controller
 {
@@ -18,10 +19,17 @@ class AppointmentController extends Controller
     }
 
 
-    public function index()
+    public function index(AppointmentSearchService $appointmentSearchService, Request $request)
     {
-        $appointments = Appointment::orderBy('created_at', 'DESC')
+        $appointments = $appointmentSearchService->title($request->get('title_filter'))
+                        ->description($request->get('description_filter'))
+                        ->totalReminders($request->get('total_reminders_filter'))
+                        ->creationDate($request->get('creation_date_filter'))
+                        ->remindDate($request->get('reminder_date_filter'))
+                        ->onlyFutureAppointments($request->get('only_future_appointments_filter'))
+                        ->getQuery()
                         ->paginate(5);
+
         return View::make('tarefa.index', compact('appointments'));
     }
 
