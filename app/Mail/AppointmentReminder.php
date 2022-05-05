@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Tarefa;
+use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,7 +22,7 @@ class AppointmentReminder extends Mailable
      *
      * @return void
      */
-    public function __construct(Tarefa $appointment)
+    public function __construct(Appointment $appointment)
     {
         $this->appointment = $appointment;
         $this->owner = $appointment->owner;

@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\NotifyAppointmentEvent;
 use Illuminate\Console\Command;
-use App\Models\Tarefa;
+use App\Models\Appointment;
 
 class AppointmentsVerify extends Command
 {
@@ -39,10 +39,6 @@ class AppointmentsVerify extends Command
      */
     public function handle()
     {
-        /*$appointments = Tarefa::all()->filter(function($appointment){
-            return $appointment->isToNotify();
-        });*/
-        
         $appointments = Tarefa::where(function($q){
             return $q->isToNotify();
         })->get();
@@ -57,7 +53,7 @@ class AppointmentsVerify extends Command
         }
 
         echo "{$totalEmailsSent} emails sent." . PHP_EOL;
-        
+
         return 0;
     }
 }

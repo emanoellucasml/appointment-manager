@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Scopes\AppointmentScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class Tarefa extends Model
+class Appointment extends Model
 {
     use HasFactory;
 
@@ -44,6 +45,11 @@ class Tarefa extends Model
     public function shouldINotifyNow(): bool
     {
         return Carbon::now()->diffInMinutes($this->date_reminder) <= 2;
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new AppointmentScope());
     }
 
 }
