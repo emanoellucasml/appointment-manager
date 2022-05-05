@@ -20,8 +20,7 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        $appointments = Appointment::where('user_id', Auth::user()->id)
-                        ->orderBy('created_at', 'DESC')
+        $appointments = Appointment::orderBy('created_at', 'DESC')
                         ->paginate(8);
         return View::make('tarefa.index', compact('appointments'));
     }
