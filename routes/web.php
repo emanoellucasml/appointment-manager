@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/ 
+*/
 
-Route::get('/', [App\Http\Controllers\TarefaController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\AppointmentController::class, 'index'])->name('home');
 
 Auth::routes(['register' => false]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
+Route::resource('tarefa', 'App\Http\Controllers\AppointmentController');
