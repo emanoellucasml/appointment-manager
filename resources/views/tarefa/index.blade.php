@@ -132,11 +132,11 @@
         const item = JSON.parse(elemento.getAttribute('data-item'));
         const datetime = elemento.getAttribute('data-datetime');
         const form = document.getElementById('form-edit-compromisso');
-
         form.action = form.action.replace('/0', '/' + item.id);
         document.getElementById('title-edit').value = item.title
         document.getElementById('description-edit').value = item.description;
         document.getElementById('date_reminder-edit').value = datetime;
+
     }
 
     $(document).ready(function(){

@@ -27,6 +27,7 @@ class AppointmentController extends Controller
                         ->creationDate($request->get('creation_date_filter'))
                         ->remindDate($request->get('reminder_date_filter'))
                         ->onlyFutureAppointments($request->get('only_future_appointments_filter'))
+                        ->orderByCreationDateAscending()
                         ->getQuery()
                         ->paginate(5);
 
@@ -65,24 +66,24 @@ class AppointmentController extends Controller
     }
 
 
-    public function show(Appointment $tarefa)
+    public function show()
     {
         abort(Response::HTTP_NOT_FOUND);
     }
 
 
-    public function edit(Appointment $tarefa)
+    public function edit()
     {
         abort(Response::HTTP_NOT_FOUND);
     }
 
 
-    public function update(CompromissoSave $request, Appointment $appointment)
+    public function update($appointmentId, CompromissoSave $request)
     {
         $data = $request->validated();
         $user = Auth::user();
-
         try{
+            $appointment = Appointment::findOrFail($appointmentId);
             DB::transaction(function() use($data, $appointment){
                 $appointment->fill($data);
                 $appointment->save();

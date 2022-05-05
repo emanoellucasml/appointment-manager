@@ -12,7 +12,6 @@ class AppointmentSearchService
     public function __construct()
     {
         $this->query = Appointment::query();
-        $this->query->orderBy('created_at', 'DESC');
     }
 
     public function title($title)
@@ -64,6 +63,12 @@ class AppointmentSearchService
         if($onlyFutureAppointments){
             $this->query->whereDate('date_reminder', '>=', Carbon::now(config('app.timezone')));
         }
+        return $this;
+    }
+
+    public function orderByCreationDateAscending()
+    {
+        $this->query->orderBy('created_at', 'DESC');
         return $this;
     }
 
