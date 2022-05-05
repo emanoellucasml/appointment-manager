@@ -15,7 +15,7 @@ class CompromissoSave extends FormRequest
     }
 
 
-    protected $stopOnFirstFailure = false;
+    protected $stopOnFirstFailure = true;
 
     /**
      * Determine if the user is authorized to make this request.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tarefa;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\CompromissoSave;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 
-class TarefaController extends Controller
+class AppointmentController extends Controller
 {
 
     public function __construct(){
@@ -19,8 +19,8 @@ class TarefaController extends Controller
 
 
     public function index()
-    {        
-        $appointments = Tarefa::where('user_id', Auth::user()->id)
+    {
+        $appointments = Appointment::where('user_id', Auth::user()->id)
                         ->orderBy('created_at', 'DESC')
                         ->paginate(8);
         return View::make('tarefa.index', compact('appointments'));
@@ -48,29 +48,29 @@ class TarefaController extends Controller
             DB::transaction(function() use($data, $user){
                 $user->appointments()->create($data);
             });
-            
+
             return redirect()
                     ->route('tarefa.index')
                     ->with(['success' => 'Cadastrado com sucesso!']);
         }catch(\Exception $e){
-            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);   
+            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);
         }
     }
 
 
-    public function show(Tarefa $tarefa)
+    public function show(Appointment $tarefa)
     {
         abort(Response::HTTP_NOT_FOUND);
     }
 
 
-    public function edit(Tarefa $tarefa)
+    public function edit(Appointment $tarefa)
     {
         abort(Response::HTTP_NOT_FOUND);
     }
 
 
-    public function update(CompromissoSave $request, Tarefa $tarefa)
+    public function update(CompromissoSave $request, Appointment $tarefa)
     {
         $data = $request->validated();
         $user = Auth::user();
@@ -82,24 +82,22 @@ class TarefaController extends Controller
             });
             return redirect()
                 ->route('tarefa.index')
-                ->with(['success' => 'Tarefa atualizada!']);
+                ->with(['success' => 'Appointment atualizada!']);
         }catch(\Exception $e){
-            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);   
+            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);
         }
     }
 
 
-    public function destroy(Tarefa $tarefa)
+    public function destroy(Appointment $tarefa)
     {
         try{
-            DB::table(function() use ($tarefa){
-                $tarefa->delete();
-            });
+            $tarefa->delete();
             return redirect()
                 ->route('tarefa.index')
-                ->with(['success' => 'Tarefa atualizada!']);
+                ->with(['success' => 'Appointment apagada com sucesso!']);
         }catch(\Exception $e){
-            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);   
+            return redirect()->route('tarefa.index')->withErrors(['erro' => $e->getMessage()]);
         }
     }
 }
