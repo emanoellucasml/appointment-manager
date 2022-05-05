@@ -21,7 +21,7 @@ class AppointmentController extends Controller
     public function index()
     {
         $appointments = Appointment::orderBy('created_at', 'DESC')
-                        ->paginate(8);
+                        ->paginate(5);
         return View::make('tarefa.index', compact('appointments'));
     }
 
@@ -69,15 +69,15 @@ class AppointmentController extends Controller
     }
 
 
-    public function update(CompromissoSave $request, Appointment $tarefa)
+    public function update(CompromissoSave $request, Appointment $appointment)
     {
         $data = $request->validated();
         $user = Auth::user();
 
         try{
-            DB::transaction(function() use($data, $tarefa){
-                $tarefa->fill($data);
-                $tarefa->save();
+            DB::transaction(function() use($data, $appointment){
+                $appointment->fill($data);
+                $appointment->save();
             });
             return redirect()
                 ->route('tarefa.index')
