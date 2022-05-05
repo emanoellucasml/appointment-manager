@@ -1,5 +1,8 @@
 @extends('layouts.internal')
 <style>
+    body{
+        background-color: #e7eaeb !important;
+    }
     #corpo{
         background-color: gray;
     }
@@ -9,14 +12,63 @@
 </style>
 @section('content')
 <div class="row">
-    <div class="col-sm-12 text-center mt-1">
+    <div class="col-sm-12 mt-1 p-3 mb-2">
         <div class="h1">
             Meus compromissos
         </div>
     </div>
 
-    <div class="col-sm-12 p-2" style="background-color: gray;">
-            <i data-bs-toggle="modal" data-bs-target="#exampleModal" class="fa fa-2x fa-plus-circle" style="color: white;" aria-hidden="true"></i>
+    <div class="row">
+        <form class="row" method="GET" action="{{route('tarefa.index')}}" accept-charset="UTF-8">
+            <input type="submit" value="Submit" style="display: none">
+            <div class="col-xs-12 col-sm-12 form-group" >
+                <label class="checkbox checkbox-custom-alt text-primary">
+                    <input type="checkbox" name="only_future_appointments_filter">
+                    <strong><em class="fa fa-filter"></em>Apenas compromissos futuros</strong>
+                </label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2 form-group">
+                <label>Título</label>
+                <input type="text" class="form-control" placeholder="Ir à missa..." name="title_filter"
+                />
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-2 form-group">
+                <label>Descrição</label>
+                <input type="text" class="form-control" placeholder="Ir à missa..." name="description_filter"
+                />
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-2 form-group">
+                <label>Data de criação</label>
+                <input type="date" class="form-control" placeholder="Ir à missa..." name="creation_date_filter"
+                />
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-2 form-group">
+                <label>Total de vezes relembrado</label>
+                <input type="number" class="form-control" placeholder="0" name="total_reminders_filter"
+                />
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-2 form-group">
+                <label>Data lembrete</label>
+                <input type="date" class="form-control" placeholder="Ir à missa..." name="reminder_date_filter"
+                />
+            </div>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-1 form-group" style="padding-top: 1.4rem !important;">
+                <button data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Filtrar" class="btn form-control btn-info"><i aria-hidden="true" class="fa fa-filter"></i> Filtrar
+                </button>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-1 form-group" style="padding-top: 1.4rem !important;">
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-new-appointment" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Filtrar" class="btn form-control btn-success"><i aria-hidden="true" class="fa fa-plus"></i> Novo
+                </button>
+            </div>
+
+        </form>
     </div>
 
     <div class="col-sm-12">
@@ -80,12 +132,18 @@
         const item = JSON.parse(elemento.getAttribute('data-item'));
         const datetime = elemento.getAttribute('data-datetime');
         const form = document.getElementById('form-edit-compromisso');
-        
+
         form.action = form.action.replace('/0', '/' + item.id);
         document.getElementById('title-edit').value = item.title
         document.getElementById('description-edit').value = item.description;
         document.getElementById('date_reminder-edit').value = datetime;
     }
+
+    $(document).ready(function(){
+        document.getElementById("btn-new-appointment").addEventListener("click", function(event){
+            event.preventDefault();
+        });
+    });
 </script>
 @endsection
 

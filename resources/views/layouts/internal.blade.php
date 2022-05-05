@@ -23,7 +23,7 @@
 
     <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-    
+
     <style>
         /* TOASTR BUGFIX */
         #toast-container > div {
@@ -75,16 +75,16 @@
                         <a class="nav-link disabled" href="#">Link</a>
                     </li>
                     </ul>
-                    
-                    
+
+
                 <!--   Show this only lg screens and up   -->
                     <a class="navbar-brand d-none d-lg-block" href="#">Navbar</a>
-                    
-                    
-                    
+
+
+
                     <ul class="navbar-nav">
 
-                        <li class="nav-item" style="display: flex; align-items: center;"> 
+                        <li class="nav-item" style="display: flex; align-items: center;">
                             <div class="badge bg-secondary"> {{ Auth::user()->name }}</div>
                         </li>
 
@@ -104,10 +104,10 @@
             </div>
         </div>
         @yield('content')
-        <footer class="footer py-3 bg-light text-center" style="background-color: #8000803d !important; left: 0;">
-            <span class="text-muted">Task manager &copy; | 2022</span>
-        </footer>
     </div>
+    <footer class="footer py-3 bg-light text-center" style="position: fixed; bottom: 0; background-color: black !important; color: white; width: 100%;">
+        <span class="text-muted">Appointment reminder &copy; | 2022</span>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         $(function(){
